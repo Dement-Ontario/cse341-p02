@@ -2,6 +2,8 @@ const mongodb = require('../db/connect');
 const ObjectId = require('mongodb').ObjectId;
 const { validationResult } = require('express-validator');
 
+// ID validation code from W06 Team Assignment Solution
+
 const getAllUsers = async (req,res) => {
     // #swagger.summary = 'Get All Users'
     const result = await mongodb.getDb().db('cse341-p02').collection('users').find();
@@ -35,6 +37,9 @@ const createUser = async (req,res) => {
 
 const updateUser = async (req, res) => {
     // #swagger.summary = 'Update a User'
+    if (!ObjectId.isValid(req.params.id)) {
+        res.status(400).json('Must use a valid contact id to update a user.');
+    }
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(422).json({ errors: errors.array() });
@@ -58,6 +63,9 @@ const updateUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
     // #swagger.summary = 'Delete a User'
+    if (!ObjectId.isValid(req.params.id)) {
+        res.status(400).json('Must use a valid contact id to delete a user.');
+    }
     const userId = new ObjectId(req.params.id);
     const result = await mongodb.getDb().db('cse341-p02').collection('users').deleteOne({_id: userId});
     if(result.deletedCount > 0) {
