@@ -5,10 +5,7 @@ const { validationResult } = require('express-validator');
 const getAllUsers = async (req,res) => {
     // #swagger.summary = 'Get All Users'
     const result = await mongodb.getDb().db('cse341-p02').collection('users').find();
-    result.toArray((error, lists) => {
-        if(error) {
-            res.status(400).json(error || 'an error happened while getting users');
-        }
+    result.toArray().then((lists) => {
         res.setHeader('Content-Type', 'application/json');
         res.status(200).json(lists);
     });
