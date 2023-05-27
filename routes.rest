@@ -12,9 +12,23 @@ Content-Type: application/json
     "displayname":"Dummy Account",
     "email":"ImJustHereToTest@mailplace.com",
     "password":"testingtesting123",
-    "birthday":"12/25/0000",
+    "birthday":"12/25/1983"
+    //"description":"Everyone will watch Splatoon 2 let's plays by Eggman"
+}
+###
+PUT http://localhost:3000/users/647257cd576b56365908775c HTTP/1.1
+Content-Type: application/json
+
+{
+    "username":"dummyaccount",
+    //"displayname":"Dummy Account",
+    "email":"CrashTestDummy@mailplace.com",
+    "password":"testingtesting123",
+    "birthday":"12/25/1983",
     "description":"Everyone will watch Splatoon 2 let's plays by Eggman"
 }
+###
+DELETE http://localhost:3000/users/647257cd576b56365908775c HTTP/1.1
 
 // RENDER
 ###
@@ -30,6 +44,20 @@ Content-Type: application/json
     "displayname":"Dummy Account",
     "email":"ImJustHereToTest@mailplace.com",
     "password":"testingtesting123",
-    "birthday":"12/25/0000",
+    "birthday":"12/25/1983"
+    //"description":"Everyone will watch Splatoon 2 let's plays by Eggman"
+}
+###
+PUT https://cse341-p02.onrender.com/users/647257cd576b56365908775c HTTP/1.1
+Content-Type: application/json
+
+{
+    "username":"dummyaccount",
+    //"displayname":"Dummy Account",
+    "email":"CrashTestDummy@mailplace.com",
+    "password":"testingtesting123",
+    "birthday":"12/25/1983",
     "description":"Everyone will watch Splatoon 2 let's plays by Eggman"
 }
+###
+DELETE https://cse341-p02.onrender.com/users/647257cd576b56365908775c HTTP/1.1
