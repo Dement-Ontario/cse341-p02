@@ -8,3 +8,8 @@ exports.userValidation = [
     check('birthday', 'Please make a birthday in MM/DD/YYYY format').matches(/^(0[1-9]|1[0-2])\/(0[1-9]|[12]\d|3[01])\/(19|20)\d{2}$/),
     check('description').optional()
 ]
+
+exports.postValidation = [
+    check('heading', 'Heading is required').not().isEmpty(),
+    check('postcontent', 'Post content is required').not().isEmpty()
+]

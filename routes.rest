@@ -32,6 +32,13 @@ Content-Type: application/json
 ### DELETE USER
 DELETE http://localhost:3000/users/647257cd576b56365908775c HTTP/1.1
 
+### GET ALL POSTS
+GET http://localhost:3000/posts
+### GET ONE POST
+GET http://localhost:3000/posts/646914b5128edb848723d22d
+### GET USER POSTS
+GET http://localhost:3000/posts/from/646913d5128edb848723d22c
+
 // RENDER
 ### DEFAULT
 GET https://cse341-p02.onrender.com/
@@ -65,3 +72,10 @@ Content-Type: application/json
 }
 ### DELETE USER
 DELETE https://cse341-p02.onrender.com/users/647257cd576b56365908775c HTTP/1.1
+
+### GET ALL POSTS
+GET https://cse341-p02.onrender.com/posts
+### GET ONE POST
+GET https://cse341-p02.onrender.com/posts/646914b5128edb848723d22d
+### GET USER POSTS
+GET https://cse341-p02.onrender.com/posts/from/646913d5128edb848723d22c
