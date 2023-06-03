@@ -14,6 +14,23 @@ const getAllUsers = async (req,res) => {
     });
 }
 
+const getOneUser = async (req,res) => {
+    // #swagger.summary = 'Get One User'
+    if (!ObjectId.isValid(req.params.id)) {
+        res.status(400).json('Must use a valid user id to find a user.');
+    }
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+    }
+    const userId = new ObjectId(req.params.id);
+    const result = await mongodb.getDb().db('cse341-p02').collection('users').find({_id: userId});
+    result.toArray().then((lists) => {
+        res.setHeader('Content-Type', 'application/json');
+        res.status(200).json(lists[0]);
+    });
+};
+
 const createUser = async (req,res) => {
     // #swagger.summary = 'Create a User'
     const errors = validationResult(req);
@@ -78,6 +95,7 @@ const deleteUser = async (req, res) => {
 
 module.exports = {
     getAllUsers,
+    getOneUser,
     createUser,
     updateUser,
     deleteUser

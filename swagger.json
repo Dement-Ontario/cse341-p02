@@ -83,6 +83,32 @@
       }
     },
     "/users/{id}": {
+      "get": {
+        "summary": "Get One User",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          }
+        }
+      },
       "put": {
         "summary": "Update a User",
         "description": "",
