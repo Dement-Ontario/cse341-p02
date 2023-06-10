@@ -364,6 +364,21 @@
           }
         }
       }
+    },
+    "/auth/": {
+      "get": {
+        "summary": "Redirect to GitHub Login",
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/auth/callback": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
     }
   }
 }

@@ -58,6 +58,10 @@ Content-Type: application/json
 ### DELETE POST
 DELETE http://localhost:3000/posts/6484c63d5aa43a44e81d4378 HTTP/1.1
 
+### AUTHENTICATION
+GET http://localhost:3000/auth
+
+
 // RENDER
 ### DEFAULT
 GET https://cse341-p02.onrender.com/
@@ -117,3 +121,6 @@ Content-Type: application/json
 }
 ### DELETE POST
 DELETE https://cse341-p02.onrender.com/posts/6484c63d5aa43a44e81d4378 HTTP/1.1
+
+### AUTHENTICATION
+GET https://cse341-p02.onrender.com/auth
