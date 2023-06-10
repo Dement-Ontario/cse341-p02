@@ -5,10 +5,16 @@ const { validationResult } = require('express-validator');
 const getAllPosts = async (req,res) => {
     // #swagger.summary = 'Get All Posts'
     const result = await mongodb.getDb().db('cse341-p02').collection('posts').find();
-    result.toArray().then((lists) => {
+    try {
+        lists = await result.toArray();
+        if (!lists.length > 0) {
+            throw new Error('No data found. Check if you have misspelled anything or add documents to the collection.');
+        }
         res.setHeader('Content-Type', 'application/json');
         res.status(200).json(lists);
-    });
+    } catch(error) {
+        res.status(400).json(error.message || 'an error happened while getting posts');
+    }
 }
 
 const getUserPosts = async (req,res) => {
@@ -22,10 +28,16 @@ const getUserPosts = async (req,res) => {
     }
     const userId = new ObjectId(req.params.id);
     const result = await mongodb.getDb().db('cse341-p02').collection('posts').find({userid: userId});
-    result.toArray().then((lists) => {
+    try {
+        lists = await result.toArray();
+        if (!lists.length > 0) {
+            throw new Error('No data found. Check if you have misspelled anything or add documents to the collection.');
+        }
         res.setHeader('Content-Type', 'application/json');
         res.status(200).json(lists);
-    });
+    } catch(error) {
+        res.status(400).json(error.message || "an error happened while getting user's posts");
+    }
 };
 
 const getOnePost = async (req,res) => {
@@ -39,10 +51,16 @@ const getOnePost = async (req,res) => {
     }
     const postId = new ObjectId(req.params.id);
     const result = await mongodb.getDb().db('cse341-p02').collection('posts').find({_id: postId});
-    result.toArray().then((lists) => {
+    try {
+        lists = await result.toArray();
+        if (!lists.length > 0) {
+            throw new Error('No data found. Check if you have misspelled anything or add documents to the collection.');
+        }
         res.setHeader('Content-Type', 'application/json');
-        res.status(200).json(lists[0]);
-    });
+        res.status(200).json(lists);
+    } catch(error) {
+        res.status(400).json(error.message || 'an error happened while getting post');
+    }
 };
 
 const createPost = async (req,res) => {

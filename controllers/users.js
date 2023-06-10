@@ -8,10 +8,16 @@ const { validationResult } = require('express-validator');
 const getAllUsers = async (req,res) => {
     // #swagger.summary = 'Get All Users'
     const result = await mongodb.getDb().db('cse341-p02').collection('users').find();
-    result.toArray().then((lists) => {
+    try {
+        lists = await result.toArray();
+        if (!lists.length > 0) {
+            throw new Error('No data found. Check if you have misspelled anything or add documents to the collection.');
+        }
         res.setHeader('Content-Type', 'application/json');
         res.status(200).json(lists);
-    });
+    } catch(error) {
+        res.status(400).json(error.message || 'an error happened while getting users');
+    }
 }
 
 const getOneUser = async (req,res) => {
@@ -25,10 +31,16 @@ const getOneUser = async (req,res) => {
     }
     const userId = new ObjectId(req.params.id);
     const result = await mongodb.getDb().db('cse341-p02').collection('users').find({_id: userId});
-    result.toArray().then((lists) => {
+    try {
+        lists = await result.toArray();
+        if (!lists.length > 0) {
+            throw new Error('No data found. Check if you have misspelled anything or add documents to the collection.');
+        }
         res.setHeader('Content-Type', 'application/json');
-        res.status(200).json(lists[0]);
-    });
+        res.status(200).json(lists);
+    } catch(error) {
+        res.status(400).json(error.message || 'an error happened while getting user');
+    }
 };
 
 const createUser = async (req,res) => {
