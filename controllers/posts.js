@@ -45,8 +45,69 @@ const getOnePost = async (req,res) => {
     });
 };
 
+const createPost = async (req,res) => {
+    // #swagger.summary = 'Create a Post'
+    if (!ObjectId.isValid(req.body.userid)) {
+        res.status(400).json('Must use a valid user id to create a post.');
+    }
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+    }
+    const post = {
+        heading: req.body.heading,
+        postcontent: req.body.postcontent,
+        userid: new ObjectId(req.body.userid)
+    };
+    const result = await mongodb.getDb().db('cse341-p02').collection('posts').insertOne(post);
+    if(result.acknowledged) {
+        res.status(201).json(result);
+    } else {
+        res.status(500).json(result.error || 'An error occurred while creating the post');
+    }
+}
+
+const editPost = async (req, res) => {
+    // #swagger.summary = 'Edit a Post'
+    if (!ObjectId.isValid(req.params.id)) {
+        res.status(400).json('Must use a valid post id to update a post.');
+    }
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+    }
+    const postId = new ObjectId(req.params.id);
+    const post = {
+        heading: req.body.heading,
+        postcontent: req.body.postcontent
+    };
+    const result = await mongodb.getDb().db('cse341-p02').collection('posts').updateOne({_id: postId}, {$set: post});
+    if(result.modifiedCount > 0) {
+        res.status(204).send();
+    } else {
+        res.status(500).json(result.error || 'An error occurred while updating the post');
+    }
+}
+
+const deletePost = async (req, res) => {
+    // #swagger.summary = 'Delete a Post'
+    if (!ObjectId.isValid(req.params.id)) {
+        res.status(400).json('Must use a valid post id to delete a post.');
+    }
+    const postId = new ObjectId(req.params.id);
+    const result = await mongodb.getDb().db('cse341-p02').collection('posts').deleteOne({_id: postId});
+    if(result.deletedCount > 0) {
+        res.status(200).send();
+    } else {
+        res.status(500).json(result.error || 'An error occurred while deleting the post');
+    }
+}
+
 module.exports = {
     getAllPosts,
     getOnePost,
-    getUserPosts
+    getUserPosts,
+    createPost,
+    editPost,
+    deletePost
 };

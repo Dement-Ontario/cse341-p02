@@ -38,6 +38,25 @@ GET http://localhost:3000/posts
 GET http://localhost:3000/posts/646914b5128edb848723d22d
 ### GET USER POSTS
 GET http://localhost:3000/posts/from/646913d5128edb848723d22c
+### CREATE POST
+POST http://localhost:3000/posts HTTP/1.1
+Content-Type: application/json
+
+{
+    "heading":"Dummy Post 2",
+    "postcontent":"It's a dummy post to test the post making",
+    "userid":"646937995066dd87b03badba"
+}
+### EDIT POST
+PUT http://localhost:3000/posts/6484c63d5aa43a44e81d4378 HTTP/1.1
+Content-Type: application/json
+
+{
+    "heading":"Edited Dummy Post 2",
+    "postcontent":"I edited the dummy post"
+}
+### DELETE POST
+DELETE http://localhost:3000/posts/6484c63d5aa43a44e81d4378 HTTP/1.1
 
 // RENDER
 ### DEFAULT
